@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Mental Health Platform Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Calming wellness color palette */
+    --background: 220 20% 97%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Wellness blue primary */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Gentle green secondary */
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Soft wellness tones */
+    --muted: 220 14% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Warm accent */
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --radius: 0.75rem;
 
-    --radius: 0.5rem;
+    /* Wellness gradients */
+    --gradient-wellness: linear-gradient(135deg, hsl(217 91% 60%), hsl(142 76% 36%));
+    --gradient-calm: linear-gradient(135deg, hsl(217 91% 70%), hsl(262 83% 68%));
+    --gradient-soft: linear-gradient(180deg, hsl(220 20% 97%), hsl(220 14% 96%));
+    
+    /* Mood colors */
+    --mood-great: 142 76% 36%;
+    --mood-good: 142 76% 46%;
+    --mood-okay: 45 93% 47%;
+    --mood-low: 25 95% 53%;
+    --mood-sad: 0 84% 60%;
+
+    /* Elegant shadows */
+    --shadow-wellness: 0 10px 30px -10px hsl(217 91% 60% / 0.2);
+    --shadow-soft: 0 4px 20px -4px hsl(215 25% 15% / 0.1);
+    --shadow-glow: 0 0 40px hsl(217 91% 70% / 0.3);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +126,56 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-soft);
+  }
+}
+
+@layer utilities {
+  .gradient-wellness {
+    background: var(--gradient-wellness);
+  }
+  
+  .gradient-calm {
+    background: var(--gradient-calm);
+  }
+  
+  .shadow-wellness {
+    box-shadow: var(--shadow-wellness);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .mood-great {
+    background-color: hsl(var(--mood-great));
+  }
+  
+  .mood-good {
+    background-color: hsl(var(--mood-good));
+  }
+  
+  .mood-okay {
+    background-color: hsl(var(--mood-okay));
+  }
+  
+  .mood-low {
+    background-color: hsl(var(--mood-low));
+  }
+  
+  .mood-sad {
+    background-color: hsl(var(--mood-sad));
   }
 }
