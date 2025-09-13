@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Smile, Meh, Frown, Heart, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -23,6 +25,7 @@ const moodOptions = [
 
 export const MoodTracker = () => {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
+  const [moodNote, setMoodNote] = useState<string>("");
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
   const { toast } = useToast();
 
@@ -41,10 +44,12 @@ export const MoodTracker = () => {
       mood: mood.name,
       level: selectedMood,
       date: new Date(),
+      note: moodNote.trim() || undefined,
     };
 
     setMoodEntries(prev => [newEntry, ...prev]);
     setSelectedMood(null);
+    setMoodNote("");
     
     toast({
       title: "Mood tracked! 🌟",
@@ -106,7 +111,20 @@ export const MoodTracker = () => {
           </div>
           
           {selectedMood && (
-            <div className="text-center space-y-4">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="mood-note" className="text-sm font-medium">
+                  How are you feeling? (Optional)
+                </Label>
+                <Textarea
+                  id="mood-note"
+                  placeholder="Describe what's on your mind today... What's contributing to your mood?"
+                  value={moodNote}
+                  onChange={(e) => setMoodNote(e.target.value)}
+                  className="min-h-[80px] resize-none shadow-soft"
+                />
+              </div>
+              
               <Button
                 onClick={saveMoodEntry}
                 variant="wellness"
@@ -139,17 +157,24 @@ export const MoodTracker = () => {
                 return (
                   <div
                     key={entry.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                    className="flex items-start justify-between p-4 rounded-lg bg-muted/50 space-x-3"
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-full ${mood?.color} text-white`}>
+                    <div className="flex items-start space-x-3 flex-1">
+                      <div className={`p-2 rounded-full ${mood?.color} text-white flex-shrink-0`}>
                         <Icon className="w-4 h-4" />
                       </div>
-                      <div>
-                        <p className="font-medium">{entry.mood}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {entry.date.toLocaleDateString()}
-                        </p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <p className="font-medium">{entry.mood}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {entry.date.toLocaleDateString()}
+                          </p>
+                        </div>
+                        {entry.note && (
+                          <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                            "{entry.note}"
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
